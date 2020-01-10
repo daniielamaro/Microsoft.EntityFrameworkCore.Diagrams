@@ -1,0 +1,285 @@
+@import '~@angular/material/theming';
+
+$toolbar-zindex: 30;
+
+:host {
+    display: block;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+
+    .spacer {
+        flex: 1;
+    }
+
+    md-toolbar {
+
+        &.main-toolbar {
+            padding: 0 16px;
+
+            @media (max-width: 420px) {
+                padding: 0 8px;
+            }
+
+            @media (max-width: 360px) {
+                padding: 0 4px;
+
+                .controls .mat-icon-button {
+                    width: 32px;
+                    height: 32px;
+                    line-height: 32px;
+                }
+            }
+
+            .title {
+                @media (max-width: 1224px) {
+                    display: none;
+                }
+            }
+        }
+
+        @media (max-width: 480px) {
+            padding: 0 4px;
+        }
+
+        .title {
+            flex: 0 1 auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            @media (max-width: 768px) {
+                white-space: normal;
+                line-height: 24px;
+                font-size: 18px;
+            }
+
+            @media (max-width: 480px) {
+                white-space: normal;
+                line-height: 20px;
+                font-size: 14px;
+            }
+        }
+
+        .controls {
+            flex: 1 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            /* $toolbar-btn-width: 40px;
+            $toolbar-padding: 16px;
+            $toolbar-width-percent: 0.25;
+            @media (max-width: ($toolbar-btn-width * 4 + $toolbar-padding * 2 - 12px) / $toolbar-width-percent) {
+                .save-layout-btn {
+                    display: none;
+                }
+            } */
+        }
+    }
+
+    md-grid-list {
+        height: 100%;
+
+        .toolbar {
+            @include mat-elevation(4);
+            z-index: $toolbar-zindex;
+
+            @media print {
+                display: none;
+            }
+
+            &-inner {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+
+                .toolbar-content {
+                    overflow-y: auto;
+                    overflow-x: hidden;
+
+                    .entities-list {
+
+                        [md-icon-button] {
+                            width: 20px;
+                            height: 20px;
+                            line-height: 20px;
+
+                            md-icon {
+                                width: 20px;
+                                height: 20px;
+                                line-height: 20px;
+                                font-size: 20px;
+                            }
+                        }
+
+                        @media (max-width: 1024px) {
+                            margin: 0 -8px;
+                        }
+
+                        @media (max-width: 768px) {
+                            margin: 0 -16px;
+
+                            .mat-list-icon {
+                                display: none;
+                            }
+                        }
+
+                        .mat-line {
+
+                            @media (max-width: 1024px) {
+                                margin: 0 -12px;
+                            }
+
+                        }
+                    }
+
+                    md-toolbar {
+                        margin-top: 16px;
+                    }
+
+                    section {
+                        margin: 16px;
+
+                        @media (max-width: 1024px) {
+                            margin: 8px;
+                        }
+
+                        @media (max-width: 768px) {
+                            margin: 4px;
+                        }
+
+                        h4 {
+                            font-weight: normal;
+
+                            @media (max-width: 480px) {
+                                font-size: 12px;
+                                line-height: 18px;
+                            }
+                        }
+
+                        .column-settings {
+                            display: flex;
+                            flex-wrap: wrap-reverse;
+                            align-items: center;
+
+                            @media (max-width: 1224px) {
+                                padding: 16px 0;
+                            }
+
+                            @media (max-width: 480px) {
+                                font-size: 12px;
+                            }
+
+                            md-slide-toggle {
+                                margin: 0 8px;
+
+                                @media (max-width: 480px) {
+                                    margin-right: -12px;
+                                    margin-left: 4px;
+                                }
+
+                                @media (max-width: 330px) {
+                                    margin-left: 8px;
+                                }
+                            }
+
+                            .reorder-buttons-container {
+                                display: inline-flex;
+                                flex-direction: column;
+                                align-items: center;
+                                vertical-align: middle;
+                                margin-right: 8px;
+                                margin-top: -8px;
+
+                                @media (max-width: 480px) {
+                                    margin-right: 0;
+                                }
+
+                                @media (max-width: 330px) {
+                                        margin-left: 16px;
+                                        margin-top: 8px;
+                                }
+
+                                [md-icon-button] {
+                                    width: 20px;
+                                    height: 20px;
+                                    line-height: 20px;
+
+                                    md-icon {
+                                        width: 20px;
+                                        height: 20px;
+                                        line-height: 20px;
+                                        font-size: 20px;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                efd-scaling-toolbar {
+                    padding: 8px;
+                    background: white;
+                    border-top: 1px solid #eee;
+                    text-align: center;
+                }
+            }
+        }
+
+        .diagram {
+            @media print {
+                left: 0 !important;
+                width: 100vw !important;
+            }
+
+            .no-diagram-cont {
+                text-align: center;
+            }
+        }
+    }
+
+    .floating-toolbar {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        @include mat-elevation(2);
+        z-index: $toolbar-zindex;
+        width: 25%;
+        border-radius: 2px;
+        // background: white;
+
+        @media print {
+            display: none;
+        }
+    }
+}
+
+
+.import-btn {
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+}
+
+h1, h2 {
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 22px;
+}

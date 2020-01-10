@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageVersion>0.4.2</PackageVersion>
+    <Description>
+Visualize model created with EntityFramework Core in ASP.NET Core app.
+
+https://db-diagrams.firebaseapp.com/
+
+1. Install the NuGet package
+2. Use AddEfDiagrams() extension method in Configure() method of your Startup class to add middleware. Specify your DbContext type instead of ApplicationDbContext in the following example: app.AddEfDiagrams&lt;ApplicationDbContext&gt;();
+3. Start your app and browse to /db-diagrams page. You should see the diagram now.
+
+Use the middleware is only in Development mode. This is important! Otherwise, any user in Production will se your model structure, which may not be desireable. This is not the case if you are developing public API, though.
+
+Feel free to report any bugs or feature requests - just create an issue. Contributions are appreciated!
+https://github.com/EvAlex/ef-db-diagrams
+    </Description>
+    <PackageIconUrl>https://github.com/EvAlex/ef-db-diagrams/raw/master/icon.png</PackageIconUrl>
+    <Authors>Alexander Pavlyuk (EvAlex)</Authors>
+    <PackageProjectUrl>https://db-diagrams.firebaseapp.com/</PackageProjectUrl>
+    <PackageTags>aspnetcore;entityframeworkcore;ef;diagram;er;</PackageTags>
+    <RepositoryUrl>https://github.com/EvAlex/ef-db-diagrams</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright © Alexander Pavlyuk 2017</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/EvAlex/ef-db-diagrams/master/LICENSE.TXT</PackageLicenseUrl>
+    <PackageReleaseNotes>
+- fix: misplaced relation connectors
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>0.4.2.0</AssemblyVersion>
+    <FileVersion>0.4.2.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.6\EntityFrameworkCore.Diagrams.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <Target Name="BuildFrontend" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <Message Text="Downloading dependencies for Frontend App..." />
+    <Exec Command="npm i" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+    <Message Text="Building Frontend App..." />
+    <Exec Command="ng build --prod --base-href=/db-diagrams/ --progress=false" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+
+    <ItemGroup>
+      <Content Include="wwwroot\db-diagrams\*.*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+  </Target>
+
+</Project>

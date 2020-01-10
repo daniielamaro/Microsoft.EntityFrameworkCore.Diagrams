@@ -1,0 +1,102 @@
+@import '../../../mixins';
+
+:host {
+    position: absolute;
+    display: inline-block;
+    font-family: Roboto monospace;
+    min-width: 320px;
+    transition: transition-property(top) transition-property(left);
+
+    md-card {
+        padding: 24px;
+
+        @media print {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: none;
+        }
+    }
+
+    md-card-title {
+        display: flex;
+        align-items: center;
+
+        span {
+            flex: 1;
+        }
+    }
+
+
+    md-card-content {
+        margin: 0 -24px -24px;
+        overflow: hidden;
+
+        &.collapsed {
+            display: none;
+        }
+
+        .mat-table {
+            display: table;
+            width: 100%;
+
+            > .mat-header-row, > .mat-row {
+                display: table-row;
+                padding: 0;
+                border: none;
+
+                > .mat-header-cell, > .mat-cell {
+                    display: table-cell;
+                    height: 48px;
+                    vertical-align: middle;
+
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                }
+            }
+
+            > .mat-row:last-child > .mat-cell {
+                border-bottom: none;
+            }
+        }
+
+        md-table {
+
+            .mat-column-key {
+                width: 36px;
+                padding: 0 16px;
+
+                &.mat-cell {
+                    color: rgba(0, 0, 0, 0.4);
+                }
+
+                md-icon {
+                    font-size: 16px;
+                    height: 16px;
+                }
+            }
+
+            .mat-column-clrType {
+                padding: 0 16px;
+            }
+
+            .mat-column-nullable {
+                width: 60px;
+                padding: 0 16px;
+
+                &.mat-cell {
+                    color: rgba(0, 0, 0, 0.4);
+                }
+            }
+
+            /* @media print {
+            }
+
+            @media print and (orientation: landscape) {
+                margin: 0 -23px;
+            }
+
+            @media print and (orientation: portrait) {
+                margin: 0 -15px;
+            } */
+        }
+    }
+
+}
